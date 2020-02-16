@@ -1,8 +1,10 @@
 <template>
-  <div class="card">
+  <div class="card" v-on:click="$emit('reveal')">
+    <img v-if="revealed" v-bind:alt="card.alt" v-bind:src="card.src" />
     <img
+      v-else
       alt="alt name"
-      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
+      src="https://www.purpleeasel.com/wp-content/uploads/2018/09/Hidden-Crystals-yp3hr.jpg"
     />
   </div>
 </template>
@@ -11,8 +13,8 @@
 export default {
   name: "Card",
   props: {
-    alt: String,
-    image: String
+    revealed: Boolean,
+    card: Object
   }
 };
 </script>
@@ -22,14 +24,14 @@ export default {
 div.card {
   flex: 0;
   border: 1px solid black;
-  height: 60px;
-  width: 40px;
+  height: 90px;
+  width: 60px;
   margin: 0.5em;
 }
 
 img {
   position: relative;
-  left: -28px;
-  top: -18px;
+  width: inherit;
+  height: inherit;
 }
 </style>
