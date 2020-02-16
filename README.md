@@ -9,7 +9,7 @@ Reveal pairs of same cards
 - ~~Reveal / Hide a card~~
 - ~~Set up a failed guesses counter~~
 - ~~Keep guessed card revealed~~
-- Give positive / negative feedback on guess
+- Give positive / negative feedback on guessing
 - ~~End a game when all cards have been guessed~~
 - Create a score
   - +10 for each pair guessed
@@ -17,3 +17,4 @@ Reveal pairs of same cards
 - Edit an about section
 - Create feedback form
 - Social network score sharing
+- Improvement: screen is flashing on game reset
