@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Memory</h1>
+    <h1>Memory Game</h1>
     <Board v-bind:cardCount="cardCount" />
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin: 60px 10em;
+  margin: 60px 2em;
 }
 
 @media only screen and (max-width: 768px) {
