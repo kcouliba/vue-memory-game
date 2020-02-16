@@ -1,24 +1,10 @@
-# memory
+# Memory card game
 
-## Project setup
-```
-npm install
-```
+Reveal pairs of same cards
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## TODO
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Set a board of with an even count of cards
+- Fetch card images (count of cards / 2)
+- Reveal / Hide a card
+- Set up a failed guesses counter
