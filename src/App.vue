@@ -9,18 +9,13 @@
 <script>
 import Board from "./components/Board";
 
-const cardCount = 11;
+const cardCount = 4;
 
 export default {
   name: "App",
   components: { Board },
   data() {
     return { cardCount };
-  },
-  async created() {
-    // setTimeout(() => {
-    //   this.cardCount *= 2;
-    // }, 3000);
   }
 };
 </script>
