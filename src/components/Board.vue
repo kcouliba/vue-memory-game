@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <div v-if="gameEnded">
+    <h2>Congratulations !!!</h2>
+    <p>Failed guesses {{failCounter}}</p>
+    <button v-on:click="resetGame()">New game</button>
+  </div>
+  <div v-else>
     <p>Failed {{failCounter}}</p>
     <button v-on:click="resetGame()">Reset</button>
     <div class="board" v-show="ready">
@@ -46,13 +51,27 @@ export default {
   components: { Card },
   props: { cardCount: Number },
   data() {
-    return { ready: false, error: false, cards: [], guess: [], failCounter: 0 };
+    return {
+      ready: false,
+      error: false,
+      cards: [],
+      guess: [],
+      failCounter: 0
+    };
   },
   async created() {
     try {
       this.initGame();
     } catch (error) {
       this.error = true;
+    }
+  },
+  computed: {
+    gameEnded: function() {
+      return (
+        this.guess.length === 0 &&
+        this.cards.every(card => card.revealed === true)
+      );
     }
   },
   methods: {
@@ -79,7 +98,7 @@ export default {
       this.failCounter = 0;
     },
     revealCard: function(i) {
-      if (this.guess.length === 2) return;
+      if (this.guess.length === 2 || this.cards[i].revealed) return;
       this.cards[i].revealed = true;
       this.guess.push(i);
       this.guess.length === 2 && this.validateGuess();
@@ -94,10 +113,13 @@ export default {
         // give negative feedback
       }
       return new Promise(resolve => {
-        setTimeout(() => {
-          // clean feedback if needed
-          resolve();
-        }, 1000);
+        setTimeout(
+          () => {
+            // clean feedback if needed
+            resolve();
+          },
+          positive ? 100 : 1000
+        );
       });
     },
     validateGuess: async function() {

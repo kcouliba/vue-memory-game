@@ -10,4 +10,4 @@ Reveal pairs of same cards
 - ~~Set up a failed guesses counter~~
 - ~~Keep guessed card revealed~~
 - Give positive / negative feedback on guess
-- End a game when all cards have been guessed
+- ~~End a game when all cards have been guessed~~
