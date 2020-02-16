@@ -1,47 +1,44 @@
 <template>
-  <div class="board" v-show="ready">
-    <Card
-      v-for="(card, i) in cards"
-      v-bind:card="card"
-      v-bind:key="i"
-      v-bind:revealed="card.revealed"
-      v-on:reveal="revealCard(i)"
-    />
+  <div>
+    <p>Failed {{failCounter}}</p>
+    <button v-on:click="resetGame()">Reset</button>
+    <div class="board" v-show="ready">
+      <Card
+        v-for="(card, i) in cards"
+        v-bind:card="card"
+        v-bind:key="card.id"
+        v-bind:revealed="card.revealed"
+        v-on:reveal="revealCard(i)"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import Card from "./Card";
+import { getDogImages } from "../api";
+import { shuffle } from "../utils/array";
 
 async function createCards(count) {
-  const images = await fetch(`https://pokeapi.co/api/v2/pokemon/${2}/`)
-    .then(res => res.json())
-    .then(res => {
-      return [res?.sprites?.front_default];
-    })
-    .catch(e => {
-      console.error(e);
-      return [];
-    });
+  const images = await getDogImages(count / 2);
   const cards = images.reduce((acc, image) => {
     return acc.concat(
       {
+        id: --count,
         alt: "card image",
         src: image,
         revealed: false
       },
       {
+        id: --count,
         alt: "card image",
         src: image,
         revealed: false
       }
     );
   }, []);
-  // new Array(this.cardCount + (this.cardCount % 2));
 
-  console.log("created cards", cards, count);
-
-  return cards;
+  return shuffle(cards);
 }
 
 export default {
@@ -49,37 +46,70 @@ export default {
   components: { Card },
   props: { cardCount: Number },
   data() {
-    return { ready: false, cards: [], guess: [] };
+    return { ready: false, error: false, cards: [], guess: [], failCounter: 0 };
   },
   async created() {
-    // we make sure we have an even count of cards
-    const cards = await createCards(this.cardCount + (this.cardCount % 2));
-
-    this.cards = cards;
-    this.ready = true;
+    try {
+      this.initGame();
+    } catch (error) {
+      this.error = true;
+    }
   },
   methods: {
+    async initGame() {
+      // we make sure we have an even count of cards
+      const cards = await createCards(this.cardCount + (this.cardCount % 2));
+
+      this.cards = cards;
+      this.ready = true;
+    },
+    async resetGame() {
+      this.resetData();
+      try {
+        this.initGame();
+      } catch (error) {
+        this.error = true;
+      }
+    },
+    resetData() {
+      this.ready = false;
+      this.error = false;
+      this.cards = [];
+      this.guess = [];
+      this.failCounter = 0;
+    },
     revealCard: function(i) {
-      if (this.guess.length < 2) {
-        this.cards[i].revealed = true;
-        this.guess.push(i);
-      }
-      if (this.guess.length === 2) {
-        setTimeout(() => {
-          this.validateGuess();
-        }, 1000);
-      }
+      if (this.guess.length === 2) return;
+      this.cards[i].revealed = true;
+      this.guess.push(i);
+      this.guess.length === 2 && this.validateGuess();
     },
     isCardRevealed: function(i) {
       return this.cards[i].revealed;
     },
-    validateGuess: function() {
+    giveFeedback: function(positive) {
+      if (positive) {
+        // give positive feedback
+      } else {
+        // give negative feedback
+      }
+      return new Promise(resolve => {
+        setTimeout(() => {
+          // clean feedback if needed
+          resolve();
+        }, 1000);
+      });
+    },
+    validateGuess: async function() {
       const cardA = this.cards[this.guess[0]];
       const cardB = this.cards[this.guess[1]];
+      const goodGuess = cardA?.src === cardB?.src;
 
-      if (cardA?.src !== cardB?.src) {
+      await this.giveFeedback(goodGuess);
+      if (!goodGuess) {
         cardA.revealed = false;
         cardB.revealed = false;
+        this.failCounter++;
       }
       this.guess = [];
     }

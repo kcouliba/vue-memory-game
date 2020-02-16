@@ -23,15 +23,21 @@ export default {
 <style scoped>
 div.card {
   flex: 0;
-  border: 1px solid black;
   height: 90px;
   width: 60px;
   margin: 0.5em;
+  border-radius: 5px;
+  box-shadow: 0.2em 0.2em rgba(50, 200, 50, 0.3);
+}
+
+div.card:hover {
+  box-shadow: 0.2em 0.2em rgba(50, 200, 50, 0.5);
 }
 
 img {
   position: relative;
   width: inherit;
   height: inherit;
+  border-radius: 5px;
 }
 </style>

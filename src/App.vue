@@ -9,7 +9,7 @@
 <script>
 import Board from "./components/Board";
 
-const cardCount = 4;
+const cardCount = 12;
 
 export default {
   name: "App",
