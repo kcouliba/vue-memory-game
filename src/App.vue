@@ -26,6 +26,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin: 60px 10em 0;
+  margin: 60px 10em;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For smaller screens: */
+  #app {
+    margin: 1em;
+  }
 }
 </style>
