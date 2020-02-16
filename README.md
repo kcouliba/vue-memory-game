@@ -11,3 +11,9 @@ Reveal pairs of same cards
 - ~~Keep guessed card revealed~~
 - Give positive / negative feedback on guess
 - ~~End a game when all cards have been guessed~~
+- Create a score
+  - +10 for each pair guessed
+  - 1.5 multiplier for consecutive guesses
+- Edit an about section
+- Create feedback form
+- Social network score sharing
