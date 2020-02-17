@@ -27,11 +27,23 @@ div.card {
   width: 120px;
   margin: 0.5em;
   border-radius: 5px;
+  box-shadow: 0.15em 0.15em rgba(93, 100, 93, 0.3);
+}
+
+.card:hover {
+  box-shadow: 0.15em 0.15em rgba(204, 153, 14, 0.5);
+}
+
+div.card.selected {
+  box-shadow: 0.2em 0.2em rgba(204, 153, 14, 0.7);
+}
+
+div.card.revealed {
   box-shadow: 0.2em 0.2em rgba(50, 200, 50, 0.3);
 }
 
-div.card:hover {
-  box-shadow: 0.2em 0.2em rgba(50, 200, 50, 0.5);
+div.card.wrong {
+  box-shadow: 0.2em 0.2em rgba(228, 45, 45, 0.8);
 }
 
 img {

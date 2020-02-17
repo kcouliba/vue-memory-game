@@ -13,6 +13,7 @@
         v-bind:card="card"
         v-bind:key="card.id"
         v-bind:revealed="card.revealed"
+        v-bind:class="{selected: isCardSelected(i), revealed: isCardRevealed(i), wrong: isWrongGuess(i)}"
         v-on:reveal="revealCard(i)"
       />
     </div>
@@ -77,7 +78,8 @@ export default {
   methods: {
     async initGame() {
       // we make sure we have an even count of cards
-      const cards = await createCards(this.cardCount + (this.cardCount % 2));
+      const cards = await createCards(6);
+      // const cards = await createCards(this.cardCount + (this.cardCount % 2));
 
       this.cards = cards;
       this.ready = true;
@@ -103,23 +105,18 @@ export default {
       this.guess.push(i);
       this.guess.length === 2 && this.validateGuess();
     },
+    isCardSelected: function(i) {
+      return this.guess.includes(i);
+    },
     isCardRevealed: function(i) {
-      return this.cards[i].revealed;
+      return this.cards[i].revealed && !this.isCardSelected(i);
+    },
+    isWrongGuess: function(i) {
+      return this.guess.length === 2 && this.isCardSelected(i);
     },
     giveFeedback: function(positive) {
-      if (positive) {
-        // give positive feedback
-      } else {
-        // give negative feedback
-      }
       return new Promise(resolve => {
-        setTimeout(
-          () => {
-            // clean feedback if needed
-            resolve();
-          },
-          positive ? 100 : 1000
-        );
+        setTimeout(() => resolve(), positive ? 0 : 1000);
       });
     },
     validateGuess: async function() {
