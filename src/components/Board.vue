@@ -133,10 +133,10 @@ export default {
 
       await this.giveFeedback(goodGuess);
       if (!goodGuess) {
-        cardA.revealed = false;
-        cardB.revealed = false;
         this.failCounter++;
         this.score -= this.score === 0 ? 0 : 1;
+        cardA.revealed = false;
+        cardB.revealed = false;
         multiplier = 1;
       } else {
         this.score += Math.floor(SCORE_GUESS * multiplier);

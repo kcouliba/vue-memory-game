@@ -6,6 +6,8 @@ Reveal pairs of same cards
 
 That project was realized while discovering Vue.JS framework
 
+Deployed website is available [here](https://vue-memory-game.now.sh/)
+
 ## TODO
 
 - ~~Set a board of with an even count of cards~~
