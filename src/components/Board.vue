@@ -104,6 +104,7 @@ export default {
       this.cards = [];
       this.guess = [];
       this.failCounter = 0;
+      this.score = 0;
     },
     revealCard: function(i) {
       if (this.guess.length === 2 || this.cards[i].revealed) return;
@@ -135,6 +136,7 @@ export default {
         cardA.revealed = false;
         cardB.revealed = false;
         this.failCounter++;
+        this.score -= this.score === 0 ? 0 : 1;
         multiplier = 1;
       } else {
         this.score += Math.floor(SCORE_GUESS * multiplier);
