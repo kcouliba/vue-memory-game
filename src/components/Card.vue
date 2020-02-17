@@ -23,8 +23,8 @@ export default {
 <style scoped>
 div.card {
   flex: 0;
-  height: 160px;
-  width: 120px;
+  height: 12em;
+  width: 8em;
   margin: 0.5em;
   border-radius: 5px;
   box-shadow: 0.15em 0.15em rgba(93, 100, 93, 0.3);
