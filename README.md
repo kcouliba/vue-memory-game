@@ -2,6 +2,10 @@
 
 Reveal pairs of same cards
 
+## Context
+
+That project was realized while discovering Vue.JS framework
+
 ## TODO
 
 - ~~Set a board of with an even count of cards~~
@@ -17,4 +21,13 @@ Reveal pairs of same cards
 - Create an about section
 - Create feedback form
 - Social network score sharing
-- Improvement: screen is flashing on game reset
+- ~~Improvement: screen is flashing on game reset~~
+- Center card to form a square as much as possible
+- Score leaderboard
+- Other images datasource
+
+## Credits
+
+Ce projet utilise les API suivantes, merci pour leur travail.
+
+- [dog.ceo](https://dog.ceo/dog-api/)
