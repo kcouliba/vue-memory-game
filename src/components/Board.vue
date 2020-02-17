@@ -1,12 +1,16 @@
 <template>
-  <div v-if="gameEnded">
-    <h2>Congratulations !!!</h2>
-    <p>Failed guesses {{failCounter}}</p>
-    <button v-on:click="resetGame()">New game</button>
-  </div>
-  <div v-else>
-    <p>Failed {{failCounter}}</p>
-    <button v-on:click="resetGame()">Reset</button>
+  <div>
+    <div v-if="gameEnded">
+      <h2>Congratulations !!!</h2>
+      <p>Score {{score}}</p>
+      <p>Failed {{failCounter}}</p>
+      <button v-on:click="resetGame()">New game</button>
+    </div>
+    <div v-if="!gameEnded">
+      <p>Score {{score}}</p>
+      <p>Failed {{failCounter}}</p>
+      <button v-on:click="resetGame()">Reset</button>
+    </div>
     <div class="board" v-show="ready">
       <Card
         v-for="(card, i) in cards"
@@ -46,6 +50,8 @@ async function createCards(count) {
 
   return shuffle(cards);
 }
+const SCORE_GUESS = 10;
+let multiplier = 1;
 
 export default {
   name: "Board",
@@ -57,7 +63,8 @@ export default {
       error: false,
       cards: [],
       guess: [],
-      failCounter: 0
+      failCounter: 0,
+      score: 0
     };
   },
   async created() {
@@ -78,8 +85,7 @@ export default {
   methods: {
     async initGame() {
       // we make sure we have an even count of cards
-      const cards = await createCards(6);
-      // const cards = await createCards(this.cardCount + (this.cardCount % 2));
+      const cards = await createCards(this.cardCount + (this.cardCount % 2));
 
       this.cards = cards;
       this.ready = true;
@@ -129,6 +135,11 @@ export default {
         cardA.revealed = false;
         cardB.revealed = false;
         this.failCounter++;
+        multiplier = 1;
+      } else {
+        this.score += Math.floor(SCORE_GUESS * multiplier);
+        multiplier *= 1.2;
+        multiplier = multiplier > 2 ? 2 : multiplier;
       }
       this.guess = [];
     }
